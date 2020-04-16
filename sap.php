@@ -97,7 +97,7 @@ if (!$result) {
                     <p>Eat shit!</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Edit</button>
+                    <input type="button" name="edit" value="Edit" id="<?php echo $row["id"]; ?>" class="btn btn-info btn-xs edit_data" />   
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
                 
@@ -122,6 +122,22 @@ if (!$result) {
 
         
         })
+        $('.edit_data').click(function(){
+            var customer_id = $(this).attr("id");
+
+            $.ajax({
+                url:"select_edit.php",
+                method:"post",
+                data:{customer_id:customer_id},
+                success:function(data){
+                    $('#customer_info').html(data);
+                    $('#dataModal').modal("show");
+                }
+            })
+
+        
+         })
+        
     });
 </script>
 

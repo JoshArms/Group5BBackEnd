@@ -7,19 +7,19 @@
     $connect = mysqli_connect("er7lx9km02rjyf3n.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306", "rs0czd6o8w8e8r3j", "w1ffboir25orrcs4");
     $connect2 = mysqli_connect("localhost", "root", "");
     $sql = "SELECT * FROM customers WHERE id = '".$_POST["customer_id"]."'"; 
-    $sql2 = "SELECT quotes FROM customers WHERE id = '".$_POST["customer_id"]."'"; 
+    $sql2 = "SELECT quote, comment FROM customer_db WHERE id = '".$_POST["customer_id"]."'"; 
     mysqli_select_db($connect, 'b25oudnru9u3blk4');
     mysqli_select_db($connect2, 'sales_associates_db');
     $result = mysqli_query($connect, $sql);
     $result2 = mysqli_query($connect2, $sql2);
-    if (!$result || !$result2) {
+    if (!$result) {
         printf("Error: %s\n", mysqli_error($connect));
         exit();
     }
     $output .= '  
     <div class="table-responsive">  
         <table class="table table-bordered">';  
-    while($row = mysqli_fetch_array($result) && $db2 = mysqli_fetch_array($result2))  
+    while($row = mysqli_fetch_array($result) )  
     {  
         $output .= '  
                 <tr>  
@@ -40,15 +40,25 @@
                 </tr>  
                 <tr>  
                     <td width="30%"><label>Contact</label></td>  
-                    <td width="70%">'.$row["contact"].' Year</td>  
-                </tr>
+                    <td width="70%">'.$row["contact"].'</td>  
+                </tr>  
+                ';
+        $row2 = mysqli_fetch_array($result2);
+        $output .= '  
                 <tr>  
                     <td width="30%"><label>Quote</label></td>  
-                    <td width="70%">'.$db2["quote"].' Year</td>  
-                </tr>    
-                ';  
+                    <td width="70%">'.$row2["quote"].'</td>  
+                </tr>
+                <tr>  
+                    <td width="30%"><label>Comment</label></td>  
+                    <td width="70%">'.$row2["comment"].'</td>  
+                </tr>
+                ';
+
     }  
-    $output .= "</table></div>";  
-    echo $output;  
+    echo $output;
+    
  }  
  ?>
+
+ 
