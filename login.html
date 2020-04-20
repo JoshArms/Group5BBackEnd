@@ -1,0 +1,114 @@
+<!--***********************
+    Written by David Tullis
+    Last Modified - 4/19/20
+    ***********************-->
+
+
+<!-- functions as the html part of a login portal. Does this with an api call-->
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+ 
+        <title>Login Portal</title>
+ 
+        <!-- Libraries -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+        <link href="custom.css" rel="stylesheet">
+        
+    </head>
+<body>
+ 
+<!-- navbar -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#">Sales Associate Portal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" href="index.html" id='home'>Home</a>
+            <a class="nav-item nav-link" href="login.html" id='login'>Login</a>
+        </div>
+    </div>
+</nav>
+<!-- /navbar -->
+
+    <h2>Login</h2>
+    <form id='login_form'>
+        <div class='form-group'>
+            <label for='user_id'>Username</label>
+            <input type='user_id' class='form-control' id='user_id' name='user_id' placeholder='Enter username'>
+        </div>
+
+        <div class='form-group'>
+            <label for='password'>Password</label>
+            <input type='password' class='form-control' id='password' name='password' placeholder='Password'>
+        </div>
+
+        <button type='submit' class='btn btn-primary'>Login</button>
+    </form>
+
+    <script>
+       $(document).ready(function(){
+       
+        $(document).on('submit', '#login_form', function(){
+            var login_form=$(this);
+            var form_data = JSON.stringify(login_form.serializeObject());
+
+            // submit form data to api
+        $.ajax({
+            url: "http://localhost/467_final_proj/api/login.php",
+            type : "POST",
+            contentType : 'application/json',
+            data : form_data,
+            success : function(result){
+        
+        
+                // show home page
+                location.href='http://localhost/467_final_proj/api/sap.php';
+        
+            },
+            error: function(xhr, resp, text){
+                // on error, tell the user login has failed & empty the input boxes
+                $('#response').html("<div class='alert alert-danger'>Login failed. Email or password is incorrect.</div>");
+                login_form.find('input').val('');
+            }
+        });
+
+            return false;
+
+        });
+        //serialise the form data
+        $.fn.serializeObject = function(){
+ 
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+            };
+
+       });
+
+    
+        
+    </script>
+
+ 
+</body>
+</html>
