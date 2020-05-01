@@ -1,0 +1,169 @@
+<!--*****************
+
+ Written by Rhianna Eberle
+
+ last modified: 4/25/20
+
+*********************-->
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<Title>Maintain Associate Data</title>
+
+    <!-- Libraries -->
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+        <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+        <link href="custom.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- navbar -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+
+    <a class="navbar-brand" href="#">Quote System</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+
+        <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+        <div class="navbar-nav">
+
+            <a class="nav-item nav-link" href="http://students.cs.niu.edu/~z1848017/Plants/AdminH.html" id='home'>Admin Home</a>
+
+            <a class="nav-item nav-link" href="mailto:z1848017@students.niu.edu?Subject=Login%20Issues" id='quote'>Customer Service Email</a>
+
+        </div>
+
+    </div>
+
+</nav>
+<!--Show the Dates Table-->
+
+<form method="POST" action="Sdate.php">
+<table width="400" border="0">
+<tr>
+<td><FONT COLOR='white'>To</FONT></td><br />
+<script>
+$( document ).ready(function() {
+    $("#from-datepicker").datepicker({
+        format: 'yyyy-mm-dd'
+    });
+    $("#from-datepicker").on("change", function () {
+        var fromdate = $(this).val();
+        alert(fromdate);
+    });
+});
+</script>
+<td><input type="text" name="from" id="from-datepicker"/></td>
+</tr>
+<tr><td>&nbsp</td></tr>
+<tr>
+<td><font color='white'>From</font></td>
+<!--manually add date-->
+<script>
+$( document ).ready(function() {
+    $("#to-datepicker").datepicker({
+        format: 'yyyy-mm-dd'
+    });
+    $("#to-datepicker").on("change", function () {
+        var fromdate = $(this).val();
+        alert(fromdate);
+    });
+});
+</script>
+
+<td><input type="text" name="to" id="to-datepicker"/></td>
+</tr>
+<tr><td>&nbsp</td></tr>
+<tr>
+<td>&nbsp</td>
+<td><input type="submit" value="search" name="search"></td>
+</tr>
+</table>
+</form>
+<br>
+</br>
+
+
+<!--status options in radio-->
+              <h4 style="color:white;">Search by Status:</h4>
+<form method="POST" action="StatusSearch.php">
+<table width="400" border="0">
+<tr>
+<td><font color="white">finalized</font>
+<input type ="radio" name="status" value="finalized">
+</td>
+<td><font color="white">sanctioned</font>
+<input type ="radio" name="status" value="sanctioned">
+</td>
+<td><font color="white">ordered</font>
+<input type ="radio" name="status" value="ordered">
+</td>
+</tr>
+<tr>
+<td>
+<input type="submit" value="search" name="search">
+</td>
+</tr>
+</table>
+</form>
+<br></br>
+
+<!--Search the ID look up-->
+              <h4 style="color:white;">Search by ID's:</h4>
+
+<!--Customer ID-->
+<form method="POST" action="http://students.cs.niu.edu/~z1848017/Plants/CusId.php" id="plants">
+<table width="400" border="0">
+<tr>
+<td><font color="white">Customer ID:</font>
+<input type= "text" name ="c_id" id="c_id">
+</td></tr>
+<tr>
+<td><input type="submit" name="search" value="search">
+</td>
+</tr>
+</table>
+</form>
+
+<!--Sale ID-->
+
+<form method="POST" action="SaleId.php">
+<table width="400" border="0">
+<tr>
+<td>&nbsp</td>
+</tr>
+<tr>
+<td><font color="white">Sales Associate ID:</font>
+<input type="text" name="user_id" id="user_id">
+</td></tr>
+<tr>
+<td><input type="submit" name="search" value="search">
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
